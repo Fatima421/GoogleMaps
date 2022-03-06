@@ -118,8 +118,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         Log.i("testApi", imageUrl.get(i).toString());
                                     }
                                 }
-                                ViewPager mPager = findViewById(R.id.vpager);
-                                mPager.setAdapter(new Slider(MapsActivity.this, imageUrl));
+                                if (imageUrl != null) {
+                                    ViewPager mPager = findViewById(R.id.vpager);
+                                    mPager.setAdapter(new Slider(MapsActivity.this, imageUrl));
+                                }
                             }
 
                             @Override
