@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.googlemaps.Model.ApiCall;
-import com.example.googlemaps.Model.ModelApi;
 import com.example.googlemaps.ModelFlicker.ApiCallFlikr;
 import com.example.googlemaps.ModelFlicker.FlickrApi;
 import com.example.googlemaps.ModelFlicker.Photo;
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.googlemaps.databinding.ActivityMapsBinding;
 
@@ -46,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<String> servers = new ArrayList<>();
     private ArrayList<String> imageUrl = new ArrayList<>();
     private String baseImageUrl = "https://live.staticflickr.com/";
+    private Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if (imageUrl != null) {
+            imageUrl.clear();
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -118,8 +120,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         Log.i("testApi", imageUrl.get(i).toString());
                                     }
                                 }
-                                ViewPager mPager = findViewById(R.id.vpager);
-                                mPager.setAdapter(new Slider(MapsActivity.this, imageUrl));
+                                if (imageUrl != null) {
+                                    bundle.putSerializable("imageUrl", imageUrl);
+                                    Intent sliderActivity = new Intent(MapsActivity.this, SliderActivity.class);
+                                    sliderActivity.putExtras(bundle);
+                                    startActivity(sliderActivity);
+                                }
                             }
 
                             @Override

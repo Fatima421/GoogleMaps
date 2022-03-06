@@ -15,14 +15,14 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Slider extends PagerAdapter {
+public class SliderAdapter extends PagerAdapter {
 
     private ArrayList<String> imagesUrl;
     private Context context;
 
-    public Slider() {}
+    public SliderAdapter() {}
 
-    public Slider(Context context, ArrayList<String> imagesUrl) {
+    public SliderAdapter(Context context, ArrayList<String> imagesUrl) {
         this.context = context;
         this.imagesUrl = imagesUrl;
     }
